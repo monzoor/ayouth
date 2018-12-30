@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import '../assets/scss/App.scss';
+import { Provider } from 'react-redux';
+import Routes from '../Routes';
+import reduxStore from '../Store';
+
 
 class App extends Component {
     render() {
         return (
-            <div className="App">
-                asdasdasd
-            </div>
+            <Routes />
         );
     }
 }
 
-export default App;
+const ReduxApp = () => (
+    <Provider store={reduxStore}>
+        <App />
+    </Provider>
+);
+export default ReduxApp;
