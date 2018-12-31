@@ -17,8 +17,8 @@ class DashboardLayout extends Component {
     };
 
     render() {
-        const { children, users } = this.props;
-        console.log(users);
+        // const { children, users } = this.props;
+        const { children } = this.props;
         return (
             <div className="minvh-100">
                 <FadeInAnimation>
