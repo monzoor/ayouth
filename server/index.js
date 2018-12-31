@@ -4,6 +4,7 @@ const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const chalk = require('chalk');
 require('dotenv').config();
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -28,9 +29,11 @@ if (!isDev && cluster.isMaster) {
     // Priority serve any static files.
     app.use(express.static(path.resolve(__dirname, '../website/build')));
     app.use(bodyParser.urlencoded({extended: true}));
+
     // Answer API requests.
     app.use(/^(\/api).*$/, function(req, res) {
         // console.log(req.method, Object.keys(req.body).length);
+        const start = Date.now();
         let options = {
             method: req.method,
             url: process.env.API_URL + req.originalUrl,
@@ -46,17 +49,20 @@ if (!isDev && cluster.isMaster) {
         // console.log(options);
         axios(options)
             .then(function (response) {
-            //   response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
-                // console.log(response);
+                const excutionTimeInMs = (((Date.now() - start)/1000)*100).toFixed(2);
+                console.log(`${req.method} ${req.originalUrl} ${chalk.greenBright(response.status)} ${excutionTimeInMs} ms `)
                 res.send(response.data);
             })
             .catch(function (error) {
-                // handle error
-                // console.log(error.response.data);
                 const status = error.response.data.status;
                 const message = error.response.data.message;
+                let chalkType = chalk.redBright(status);
+                if (status <= 500 && status >= 400) {
+                    chalkType = chalk.yellowBright(status);
+                }
+                const excutionTimeInMs = (((Date.now() - start)/1000)*100).toFixed(2);
+                console.log(`${req.method} ${req.originalUrl} ${chalkType} ${excutionTimeInMs} ms ${chalk.redBright(error)}`)
                 res.status(status).json({ status, message });
-                // res.send(error.response.data);
             })
             .then(function () {
                 // always executed
