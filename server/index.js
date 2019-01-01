@@ -5,6 +5,7 @@ const numCPUs = require('os').cpus().length;
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const chalk = require('chalk');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -25,19 +26,27 @@ if (!isDev && cluster.isMaster) {
 
 } else {
     const app = express();
-
+    const SECRET_KEY = process.env.SECRET_KEY;
+    const expiresIn = process.env.EXPIRE_IN;
+    const appKey = process.env.APP_KEY + Date.now();
+    const signature = () => {
+        return jwt.sign({appKey}, SECRET_KEY, { expiresIn });
+    }
+    
     // Priority serve any static files.
     app.use(express.static(path.resolve(__dirname, '../website/build')));
     app.use(bodyParser.urlencoded({extended: true}));
 
     // Answer API requests.
     app.use(/^(\/api).*$/, function(req, res) {
-        // console.log(req.method, Object.keys(req.body).length);
+        console.log(req.headers);
         const start = Date.now();
         let options = {
             method: req.method,
             url: process.env.API_URL + req.originalUrl,
-            headers: {'X-Custom-Header': 'foobar'}
+            headers: {
+                'signature': signature()
+            }
         }
         if (Object.keys(req.body).length !== 0 ) {
             const data = req.body;
