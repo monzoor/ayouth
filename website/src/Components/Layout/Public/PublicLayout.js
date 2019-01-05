@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Row, Col } from 'reactstrap';
+
+import Header from './Header';
 import { FadeInAnimation } from '../../../Utils/DesignUtils';
 
 
@@ -16,9 +19,14 @@ class AuthLayout extends Component {
 
         return (
             <div className="container-fluid">
-                <FadeInAnimation>
-                    {children}
-                </FadeInAnimation>
+                <Row>
+                    <Col className="px-0">
+                        <Header />
+                        <FadeInAnimation>
+                            {children}
+                        </FadeInAnimation>
+                    </Col>
+                </Row>
             </div>
         );
     }
