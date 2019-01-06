@@ -1,4 +1,5 @@
 import React from 'react';
+import { Row, Col } from 'reactstrap';
 import heroImg from '../../assets/images/hero-1.jpg';
 
 const bgimg = {
@@ -6,9 +7,11 @@ const bgimg = {
 };
 
 const Hero = () => (
-    <div className="hero minvh-100" style={bgimg}>
-        <h1 className="text-primary pt-5 text-align-right">GIVE SCHOL A RSHIPSONLINE</h1>
-    </div>
+    <Row className="hero minvh-100" style={bgimg}>
+        <Col className="align-self-center">
+            <h1 className="text-primary pt-5 text-center">START SHOLARSHIP ONLINE</h1>
+        </Col>
+    </Row>
 );
 
 export default Hero;
