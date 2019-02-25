@@ -20,7 +20,7 @@ class AuthLayout extends Component {
         return (
             <div className="container-fluid">
                 <Row>
-                    <Col className="px-0">
+                    <Col>
                         <Header />
                         <FadeInAnimation>
                             {children}

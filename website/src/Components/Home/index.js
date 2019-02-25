@@ -1,16 +1,15 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import Hero from './Hero';
 
-class Home extends PureComponent {
-    render() {
-        return (
-            <div>
-                <div className="content mt-xl--m">
-                    <Hero />
-                </div>
+
+const Home = () => {
+    return (
+        <div>
+            <div className="content mt-xl--m">
+                <Hero />
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 export default Home;
