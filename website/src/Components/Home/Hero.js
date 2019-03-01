@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import heroImg from '../../assets/images/hero-1.jpg';
 
 const bgimg = {
@@ -8,18 +8,22 @@ const bgimg = {
 };
 
 const Hero = () => (
-    <Row className="hero minvh-100" style={bgimg}>
-        <Col className="align-self-center ml-md-5 pl-md-5">
-            <h1 className="text-white mb-5 text-left">
-                GIVE
-                <br />
-                SCHOLARSHIP
-                <br />
-                ONLINE
-            </h1>
-            <p className="text-white">Directly for the students in Goverment Promary School throughout Bangladesh</p>
-            <Link to="/" className="btn btn-primary">Prevent dropout</Link>
-        </Col>
+    <Row className="hero" style={bgimg}>
+        <Container>
+            <Row className="minvh-100">
+                <Col className="align-self-center">
+                    <h1 className="text-white text-left">
+                        GIVE
+                        <br />
+                        SCHOLARSHIP
+                        <br />
+                        ONLINE
+                    </h1>
+                    <p className="text-white">Directly for the students in Goverment Promary School throughout Bangladesh</p>
+                    <Link to="/" className="btn btn-primary">Prevent dropout</Link>
+                </Col>
+            </Row>
+        </Container>
     </Row>
 );
 

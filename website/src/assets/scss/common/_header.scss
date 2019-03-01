@@ -13,6 +13,7 @@
     left: -240px;
     width: 240px;
     transition: all 0.35s ease;
+    z-index: 9999;
     &.show {
         left: 0;
     }

@@ -3,3 +3,12 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.story {
+    @include gradient-y($start-color: #A8E063, $end-color: #48A834, $start-percent: 0%, $end-percent: 100%);
+    .story--bg {
+        background-position: center;
+        background-size: 100%;
+        background-repeat: no-repeat; 
+    }
+}
